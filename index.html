@@ -3,141 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kompletowanie Dokumentów – Straż Graniczna</title>
+    <title>Służba w Straży Granicznej – Kompletowanie Dokumentów</title>
     <style>
         :root {
-            --primary: #0f172a;
-            --accent: #2563eb;
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --border: #e2e8f0;
-            --text: #1e293b;
+            --bg-color: #0d130e;
+            --card-bg: #162218;
+            --card-border: #2a3d2e;
+            --primary-green: #1f3a24;
+            --accent-gold: #c5a059;
+            --accent-gold-hover: #e5be75;
+            --text-main: #f1f5f2;
+            --text-muted: #9ab0a0;
+            --success-bg: rgba(46, 125, 50, 0.2);
+            --success-border: #388e3c;
         }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
-        .container {
-            width: 100%;
-            max-width: 760px;
-            background: var(--card);
-            padding: 28px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border: 1px solid var(--border);
+
+        * {
             box-sizing: border-box;
         }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 24px 12px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(197, 160, 89, 0.08) 0%, transparent 70%),
+                linear-gradient(180deg, #090e0a 0%, #0d130e 100%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--card-bg);
+            padding: 32px 28px;
+            border-radius: 16px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--card-border);
+        }
+
+        .header {
+            text-align: center;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--card-border);
+            margin-bottom: 28px;
+        }
+
+        .emblem {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 12px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(197, 160, 89, 0.1);
+            border: 1px solid var(--accent-gold);
+            border-radius: 50%;
+            color: var(--accent-gold);
+        }
+
+        .emblem svg {
+            width: 36px;
+            height: 36px;
+            fill: currentColor;
+        }
+
         h1 {
             font-size: 1.5rem;
-            margin-top: 0;
-            margin-bottom: 6px;
-            color: var(--primary);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            margin: 0 0 8px 0;
+            text-transform: uppercase;
         }
+
         .subtitle {
-            font-size: 0.9rem;
-            color: #64748b;
-            margin-bottom: 24px;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.4;
         }
+
+        /* Progress Bar */
         .progress-box {
-            background: #eff6ff;
-            border: 1px solid #bfdbfe;
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 24px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 28px;
         }
+
         .progress-title {
             display: flex;
             justify-content: space-between;
             font-weight: 600;
-            font-size: 0.95rem;
-            color: #1e40af;
-            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
+
         .progress-bar {
-            background: #dbeafe;
-            height: 10px;
-            border-radius: 5px;
+            background: #0d130e;
+            height: 12px;
+            border-radius: 6px;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
+
         .progress-fill {
-            background: var(--accent);
+            background: linear-gradient(90deg, #9a7b38 0%, var(--accent-gold) 100%);
             height: 100%;
             width: 0%;
-            transition: width 0.3s ease;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(197, 160, 89, 0.4);
         }
+
+        /* Checklist */
         .checklist {
             list-style: none;
             padding: 0;
-            margin: 0 0 28px 0;
+            margin: 0 0 32px 0;
         }
+
         .item {
             display: flex;
             align-items: flex-start;
-            padding: 12px 16px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            margin-bottom: 10px;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            margin-bottom: 12px;
             cursor: pointer;
-            transition: background 0.15s ease, border-color 0.15s ease;
+            transition: all 0.2s ease;
             user-select: none;
         }
+
         .item:hover {
-            background-color: #f1f5f9;
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(197, 160, 89, 0.3);
         }
+
         .item.completed {
-            background-color: #f0fdf4;
-            border-color: #bbf7d0;
-            color: #166534;
+            background: var(--success-bg);
+            border-color: var(--success-border);
+        }
+
+        .item.completed label {
+            color: #d1e7dd;
             text-decoration: line-through;
+            opacity: 0.85;
         }
+
+        .checkbox-container {
+            position: relative;
+            margin-top: 2px;
+            margin-right: 16px;
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
         .item input[type="checkbox"] {
-            margin-top: 3px;
-            margin-right: 14px;
-            width: 18px;
-            height: 18px;
+            appearance: none;
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--text-muted);
+            border-radius: 4px;
+            background: transparent;
             cursor: pointer;
-            accent-color: var(--accent);
+            outline: none;
+            transition: all 0.2s ease;
         }
+
+        .item input[type="checkbox"]:checked {
+            background-color: var(--accent-gold);
+            border-color: var(--accent-gold);
+        }
+
+        .item input[type="checkbox"]:checked::after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid #0d130e;
+            border-width: 0 2.5px 2.5px 0;
+            transform: rotate(45deg);
+        }
+
         .item label {
             cursor: pointer;
-            line-height: 1.45;
+            line-height: 1.5;
             font-size: 0.95rem;
+            color: var(--text-main);
             flex-grow: 1;
         }
+
+        /* Notes Section */
         .notes-section {
-            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 20px;
         }
+
         .notes-section h2 {
-            font-size: 1.1rem;
-            color: var(--primary);
-            margin-bottom: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin: 0 0 12px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
+
         textarea {
             width: 100%;
-            height: 140px;
-            padding: 12px;
-            border: 1px solid var(--border);
+            height: 130px;
+            padding: 14px;
+            background: #0d130e;
+            border: 1px solid var(--card-border);
             border-radius: 8px;
+            color: var(--text-main);
             font-family: inherit;
-            font-size: 0.95rem;
-            box-sizing: border-box;
+            font-size: 0.92rem;
+            line-height: 1.5;
             resize: vertical;
-        }
-        textarea:focus {
             outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            transition: border-color 0.2s ease;
         }
+
+        textarea:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.15);
+        }
+
         .footer {
-            margin-top: 20px;
+            margin-top: 28px;
             text-align: center;
-            font-size: 0.8rem;
-            color: #94a3b8;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #4caf50;
+            border-radius: 50%;
+            margin-right: 6px;
+            box-shadow: 0 0 8px #4caf50;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 16px;
+            }
+            h1 {
+                font-size: 1.25rem;
+            }
         }
     </style>
 
@@ -147,12 +277,20 @@
 </head>
 <body>
     <div class="container">
-        <h1>Wykaz Dokumentów – Podanie o Przyjęcie do Służby</h1>
-        <div class="subtitle">Zmiany i notatki synchronizują się automatycznie na wszystkich urządzeniach.</div>
+        <div class="header">
+            <div class="emblem">
+                <!-- Godło / Ikona Tarczy -->
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-5.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8s0 0 0 0z"/>
+                </svg>
+            </div>
+            <h1>Rzeczpospolita Polska</h1>
+            <div class="subtitle">Wykaz Dokumentów Kandydata do Służby w Straży Granicznej</div>
+        </div>
 
         <div class="progress-box">
             <div class="progress-title">
-                <span>Postęp skompletowania</span>
+                <span>Stan skompletowania</span>
                 <span id="progress-text">0 / 10 (0%)</span>
             </div>
             <div class="progress-bar">
@@ -162,54 +300,72 @@
 
         <ul class="checklist">
             <li class="item" onclick="toggleCheckbox(0, event)">
-                <input type="checkbox" class="doc-check" id="doc_0" onchange="saveState()">
+                <div class="checkbox-container">
+                    <input type="checkbox" class="doc-check" id="doc_0" onchange="saveState()">
+                </div>
                 <label for="doc_0">Wypełniony kwestionariusz osobowy</label>
             </li>
             <li class="item" onclick="toggleCheckbox(1, event)">
-                <input type="checkbox" class="doc-check" id="doc_1" onchange="saveState()">
+                <div class="checkbox-container">
+                    <input type="checkbox" class="doc-check" id="doc_1" onchange="saveState()">
+                </div>
                 <label for="doc_1">Aktualna, kolorowa fotografia w formacie wymaganym do dowodu osobistego</label>
             </li>
             <li class="item" onclick="toggleCheckbox(2, event)">
-                <input type="checkbox" class="doc-check" id="doc_2" onchange="saveState()">
-                <label for="doc_2">Kserokopia dowodu osobistego (oryginały do wglądu)</label>
+                <div class="checkbox-container">
+                    <input type="checkbox" class="doc-check" id="doc_2" onchange="saveState()">
+                </div>
+                <label for="doc_2">Kserokopia dowodu osobistego (oryginał do wglądu)</label>
             </li>
             <li class="item" onclick="toggleCheckbox(3, event)">
-                <input type="checkbox" class="doc-check" id="doc_3" onchange="saveState()">
-                <label for="doc_3">Kserokopia książeczki wojskowej, o ile kandydat jest objęty ewidencją wojskową (oryginały do wglądu)</label>
+                <div class="checkbox-container">
+                    <input type="checkbox" class="doc-check" id="doc_3" onchange="saveState()">
+                </div>
+                <label for="doc_3">Kserokopia książeczki wojskowej, o ile kandydat jest objęty ewidencją wojskową (oryginał do wglądu)</label>
             </li>
             <li class="item" onclick="toggleCheckbox(4, event)">
-                <input type="checkbox" class="doc-check" id="doc_4" onchange="saveState()">
-                <label for="doc_4">Kserokopia legitymacji służbowej – tylko dla żołnierzy zawodowych (oryginały do wglądu)</label>
+                <div class="checkbox-container">
+                    <input type="checkbox" class="doc-check" id="doc_4" onchange="saveState()">
+                </div>
+                <label for="doc_4">Kserokopia legitymacji służbowej – dotyczy żołnierzy zawodowych (oryginał do wglądu)</label>
             </li>
             <li class="item" onclick="toggleCheckbox(5, event)">
-                <input type="checkbox" class="doc-check" id="doc_5" onchange="saveState()">
-                <label for="doc_5">Kserokopia świadectw pracy lub służby z poprzednich miejsc pracy lub służby (oryginały do wglądu)</label>
+                <div class="checkbox-container">
+                    <input type="checkbox" class="doc-check" id="doc_5" onchange="saveState()">
+                </div>
+                <label for="doc_5">Kserokopie świadectw pracy lub służby z poprzednich miejsc pracy lub służby (oryginały do wglądu)</label>
             </li>
             <li class="item" onclick="toggleCheckbox(6, event)">
                 <input type="checkbox" class="doc-check" id="doc_6" onchange="saveState()">
-                <label for="doc_6">Kserokopia aktualnego zaświadczenia o niekaralności z KRK, wydanego nie wcześniej niż 6 miesięcy przed złożeniem podania (dotyczy osób z poświadczeniem bezpieczeństwa)</label>
+                <label for="doc_6">Zaświadczenie o niekaralności z KRK, wydane nie wcześniej niż 6 miesięcy przed złożeniem podania</label>
             </li>
             <li class="item" onclick="toggleCheckbox(7, event)">
-                <input type="checkbox" class="doc-check" id="doc_7" onchange="saveState()">
-                <label for="doc_7">Kserokopie dokumentów potwierdzających posiadane wykształcenie i kwalifikacje zawodowe, w tym specjalistyczne (oryginały do wglądu)</label>
+                <div class="checkbox-container">
+                    <input type="checkbox" class="doc-check" id="doc_7" onchange="saveState()">
+                </div>
+                <label for="doc_7">Kserokopie dokumentów potwierdzających wykształcenie i kwalifikacje zawodowe (oryginały do wglądu)</label>
             </li>
             <li class="item" onclick="toggleCheckbox(8, event)">
-                <input type="checkbox" class="doc-check" id="doc_8" onchange="saveState()">
-                <label for="doc_8">Kserokopie odpisów skróconego aktu urodzenia kandydata/ki oraz skróconego aktu małżeństwa (o ile dotyczy) (oryginały do wglądu)</label>
+                <div class="checkbox-container">
+                    <input type="checkbox" class="doc-check" id="doc_8" onchange="saveState()">
+                </div>
+                <label for="doc_8">Kserokopie odpisów skróconego aktu urodzenia oraz aktu małżeństwa (o ile dotyczy) (oryginały do wglądu)</label>
             </li>
             <li class="item" onclick="toggleCheckbox(9, event)">
-                <input type="checkbox" class="doc-check" id="doc_9" onchange="saveState()">
-                <label for="doc_9">Kserokopia paszportu, o ile kandydat/ka go posiada (oryginał do wglądu)</label>
+                <div class="checkbox-container">
+                    <input type="checkbox" class="doc-check" id="doc_9" onchange="saveState()">
+                </div>
+                <label for="doc_9">Kserokopia paszportu, o ile kandydat go posiada (oryginał do wglądu)</label>
             </li>
         </ul>
 
         <div class="notes-section">
-            <h2>Moje Notatki / Uwagi</h2>
-            <textarea id="notes" placeholder="Wpisz tutaj dodatkowe informacje..." oninput="saveState()"></textarea>
+            <h2>Uwagi i Notatki Własne</h2>
+            <textarea id="notes" placeholder="Wpisz tutaj dodatkowe notatki, numery telefonów, terminy spotkań..." oninput="saveState()"></textarea>
         </div>
 
         <div class="footer">
-            Synchronizacja online za pomocą Firebase Realtime Database
+            <span class="status-dot"></span>Synchronizacja chmurowa w czasie rzeczywistym
         </div>
     </div>
 
