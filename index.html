@@ -59,7 +59,7 @@
         }
 
         .logo-sg {
-            height: 90px;
+            height: 85px;
             width: auto;
             filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
         }
@@ -275,8 +275,33 @@
     <div class="container">
         <div class="header">
             <div class="logo-wrapper">
-                <!-- Oficjalny Znak Straży Granicznej -->
-                <img class="logo-sg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Emblem_of_the_Polish_Border_Guard.svg/512px-Emblem_of_the_Polish_Border_Guard.svg.png" alt="Emblemat Straży Granicznej">
+                <!-- Wbudowane Oficjalne Godło Rzeczypospolitej Polskiej (SVG) -->
+                <svg class="logo-sg" viewBox="0 0 600 700" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Tarcza czerwona z cieniem/ramką -->
+                    <path d="M 300,20 L 570,100 L 570,360 C 570,540 390,660 300,680 C 210,660 30,540 30,360 L 30,100 Z" fill="#d1192e" stroke="#ffffff" stroke-width="8"/>
+                    <!-- Orzeł Biały (wektorowy wzór godła) -->
+                    <g fill="#ffffff">
+                        <!-- Korona złota -->
+                        <path d="M 270,110 L 285,145 L 300,105 L 315,145 L 330,110 L 345,160 L 255,160 Z" fill="#e5b839"/>
+                        <circle cx="270" cy="105" r="5" fill="#e5b839"/>
+                        <circle cx="300" cy="100" r="6" fill="#e5b839"/>
+                        <circle cx="330" cy="105" r="5" fill="#e5b839"/>
+                        <!-- Dziób i oko złote -->
+                        <path d="M 275,170 C 260,170 240,180 230,195 L 260,200 Z" fill="#e5b839"/>
+                        <circle cx="280" cy="180" r="4" fill="#111111"/>
+                        <!-- Głowa i Szyja -->
+                        <path d="M 300,160 C 275,160 260,175 260,195 C 260,225 285,240 300,250 C 315,240 340,225 340,195 C 340,175 325,160 300,160 Z"/>
+                        <!-- Skrzydła rozłożone z piórami -->
+                        <path d="M 260,210 C 180,180 80,220 50,330 C 100,320 160,300 230,320 C 210,270 230,230 260,210 Z"/>
+                        <path d="M 340,210 C 420,180 520,220 550,330 C 500,320 440,300 370,320 C 390,270 370,230 340,210 Z"/>
+                        <!-- Tułów i Szpony złote -->
+                        <path d="M 230,320 C 240,420 270,480 300,510 C 330,480 360,420 370,320 Z"/>
+                        <path d="M 235,480 L 205,530 M 245,490 L 230,545 M 255,485 L 255,545" stroke="#e5b839" stroke-width="12" stroke-linecap="round"/>
+                        <path d="M 365,480 L 395,530 M 355,490 L 370,545 M 345,485 L 345,545" stroke="#e5b839" stroke-width="12" stroke-linecap="round"/>
+                        <!-- Ogon -->
+                        <path d="M 270,490 L 250,580 L 300,610 L 350,580 L 330,490 Z"/>
+                    </g>
+                </svg>
             </div>
             <h1>Rzeczpospolita Polska</h1>
             <div class="subtitle">Wykaz Dokumentów Kandydata do Służby w Straży Granicznej</div>
