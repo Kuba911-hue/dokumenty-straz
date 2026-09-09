@@ -11,7 +11,6 @@
             --card-border: #2a3d2e;
             --primary-green: #1f3a24;
             --accent-gold: #c5a059;
-            --accent-gold-hover: #e5be75;
             --text-main: #f1f5f2;
             --text-muted: #9ab0a0;
             --success-bg: rgba(46, 125, 50, 0.2);
@@ -52,23 +51,17 @@
             margin-bottom: 28px;
         }
 
-        .emblem {
-            width: 64px;
-            height: 64px;
-            margin: 0 auto 12px auto;
+        .logo-wrapper {
+            margin: 0 auto 16px auto;
             display: flex;
-            align-items: center;
             justify-content: center;
-            background: rgba(197, 160, 89, 0.1);
-            border: 1px solid var(--accent-gold);
-            border-radius: 50%;
-            color: var(--accent-gold);
+            align-items: center;
         }
 
-        .emblem svg {
-            width: 36px;
-            height: 36px;
-            fill: currentColor;
+        .logo-sg {
+            width: 80px;
+            height: 80px;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
         }
 
         h1 {
@@ -131,7 +124,7 @@
 
         .item {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             padding: 14px 18px;
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--card-border);
@@ -160,11 +153,12 @@
 
         .checkbox-container {
             position: relative;
-            margin-top: 2px;
-            margin-right: 16px;
             width: 20px;
             height: 20px;
+            min-width: 20px;
+            min-height: 20px;
             flex-shrink: 0;
+            margin-right: 16px;
         }
 
         .item input[type="checkbox"] {
@@ -177,6 +171,8 @@
             background: transparent;
             cursor: pointer;
             outline: none;
+            margin: 0;
+            display: block;
             transition: all 0.2s ease;
         }
 
@@ -278,10 +274,31 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="emblem">
-                <!-- Godło / Ikona Tarczy -->
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-5.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8s0 0 0 0z"/>
+            <div class="logo-wrapper">
+                <!-- Oficjalny emblemat Straży Granicznej (SVG) -->
+                <svg class="logo-sg" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Tarcza zewnętrzna czerwona -->
+                    <path d="M 100,5 L 190,45 L 190,120 C 190,180 130,225 100,235 C 70,225 10,180 10,120 L 10,45 Z" fill="#b71c1c" stroke="#c5a059" stroke-width="4"/>
+                    <!-- Tarcza wewnętrzna zielona -->
+                    <path d="M 100,15 L 180,50 L 180,118 C 180,172 126,213 100,222 C 74,213 20,172 20,118 L 20,50 Z" fill="#1b3b22" stroke="#c5a059" stroke-width="3"/>
+                    <!-- Złoty Polański Orzeł -->
+                    <g fill="#c5a059" stroke="#9a7b38" stroke-width="0.5">
+                        <!-- Korona -->
+                        <path d="M 85,55 L 90,67 L 100,52 L 110,67 L 115,55 L 122,72 L 78,72 Z"/>
+                        <!-- Głowa i Dziób -->
+                        <path d="M 92,68 C 88,68 82,72 82,78 C 82,82 86,85 92,85 L 108,85 C 114,85 118,82 118,78 C 118,72 112,68 108,68 Z"/>
+                        <path d="M 82,75 L 72,77 L 80,81 Z"/>
+                        <!-- Skrzydła rozpościerające się -->
+                        <path d="M 78,82 C 55,80 30,95 28,125 C 45,120 65,115 78,118 C 76,105 76,92 78,82 Z"/>
+                        <path d="M 122,82 C 145,80 170,95 172,125 C 155,120 135,115 122,118 C 124,105 124,92 122,82 Z"/>
+                        <!-- Tors i Pióra -->
+                        <path d="M 78,118 C 80,145 88,165 100,175 C 112,165 120,145 122,118 C 108,122 92,122 78,118 Z"/>
+                        <!-- Szpony -->
+                        <path d="M 70,170 L 62,185 M 73,172 L 70,188 M 78,170 L 78,187"/>
+                        <path d="M 130,170 L 138,185 M 127,172 L 130,188 M 122,170 L 122,187" stroke="#c5a059" stroke-width="3"/>
+                        <!-- Ogon -->
+                        <path d="M 90,170 L 85,195 L 100,205 L 115,195 L 110,170 Z"/>
+                    </g>
                 </svg>
             </div>
             <h1>Rzeczpospolita Polska</h1>
@@ -336,7 +353,9 @@
                 <label for="doc_5">Kserokopie świadectw pracy lub służby z poprzednich miejsc pracy lub służby (oryginały do wglądu)</label>
             </li>
             <li class="item" onclick="toggleCheckbox(6, event)">
-                <input type="checkbox" class="doc-check" id="doc_6" onchange="saveState()">
+                <div class="checkbox-container">
+                    <input type="checkbox" class="doc-check" id="doc_6" onchange="saveState()">
+                </div>
                 <label for="doc_6">Zaświadczenie o niekaralności z KRK, wydane nie wcześniej niż 6 miesięcy przed złożeniem podania</label>
             </li>
             <li class="item" onclick="toggleCheckbox(7, event)">
