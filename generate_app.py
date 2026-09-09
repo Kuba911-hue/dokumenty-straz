@@ -1,0 +1,256 @@
+import os
+# Lista dokumentów wyciągniętych bezpośrednio ze zdjęcia
+DOCUMENTS = [
+   "Wypełniony kwestionariusz osobowy",
+   "Aktualna, kolorowa fotografia w formacie wymaganym do dowodu osobistego",
+   "Kserokopia dowodu osobistego (oryginały do wglądu)",
+   "Kserokopia książeczki wojskowej, o ile kandydat jest objęty ewidencją wojskową (oryginały do wglądu)",
+   "Kserokopia legitymacji służbowej – tylko dla żołnierzy zawodowych (oryginały do wglądu)",
+   "Kserokopia świadectw pracy lub służby z poprzednich miejsc pracy lub służby (oryginały do wglądu)",
+   "Kserokopia aktualnego zaświadczenia o niekaralności z KRK, wydanego nie wcześniej niż 6 miesięcy przed złożeniem podania (dotyczy osób z poświadczeniem bezpieczeństwa)",
+   "Kserokopie dokumentów potwierdzających posiadane wykształcenie i kwalifikacje zawodowe, w tym specjalistyczne (oryginały do wglądu)",
+   "Kserokopie odpisów skróconego aktu urodzenia kandydata/ki oraz skróconego aktu małżeństwa (o ile dotyczy) (oryginały do wglądu)",
+   "Kserokopia paszportu, o ile kandydat/ka go posiada (oryginał do wglądu)"
+]
+def build_checklist_html():
+   # Generowanie elementów listy HTML
+   list_items_html = ""
+   for idx, doc in enumerate(DOCUMENTS):
+       list_items_html += f'''
+<li class="item" onclick="toggleCheckbox({idx}, event)">
+<input type="checkbox" class="doc-check" id="doc_{idx}" onchange="saveState()">
+<label for="doc_{idx}">{doc}</label>
+</li>
+       '''
+   html_content = f'''<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kompletowanie Dokumentów – Straż Graniczna</title>
+<style>
+       :root {{
+           --primary: #0f172a;
+           --accent: #2563eb;
+           --bg: #f8fafc;
+           --card: #ffffff;
+           --border: #e2e8f0;
+           --text: #1e293b;
+       }}
+       body {{
+           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+           background-color: var(--bg);
+           color: var(--text);
+           margin: 0;
+           padding: 20px;
+           display: flex;
+           justify-content: center;
+       }}
+       .container {{
+           width: 100%;
+           max-width: 760px;
+           background: var(--card);
+           padding: 28px;
+           border-radius: 12px;
+           box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+           border: 1px solid var(--border);
+       }}
+       h1 {{
+           font-size: 1.5rem;
+           margin-top: 0;
+           margin-bottom: 6px;
+           color: var(--primary);
+       }}
+       .subtitle {{
+           font-size: 0.9rem;
+           color: #64748b;
+           margin-bottom: 24px;
+       }}
+       .progress-box {{
+           background: #eff6ff;
+           border: 1px solid #bfdbfe;
+           border-radius: 8px;
+           padding: 16px;
+           margin-bottom: 24px;
+       }}
+       .progress-title {{
+           display: flex;
+           justify-content: space-between;
+           font-weight: 600;
+           font-size: 0.95rem;
+           color: #1e40af;
+           margin-bottom: 8px;
+       }}
+       .progress-bar {{
+           background: #dbeafe;
+           height: 10px;
+           border-radius: 5px;
+           overflow: hidden;
+       }}
+       .progress-fill {{
+           background: var(--accent);
+           height: 100%;
+           width: 0%;
+           transition: width 0.3s ease;
+       }}
+       .checklist {{
+           list-style: none;
+           padding: 0;
+           margin: 0 0 28px 0;
+       }}
+       .item {{
+           display: flex;
+           align-items: flex-start;
+           padding: 12px 16px;
+           border: 1px solid var(--border);
+           border-radius: 8px;
+           margin-bottom: 10px;
+           cursor: pointer;
+           transition: background 0.15s ease, border-color 0.15s ease;
+           user-select: none;
+       }}
+       .item:hover {{
+           background-color: #f1f5f9;
+       }}
+       .item.completed {{
+           background-color: #f0fdf4;
+           border-color: #bbf7d0;
+           color: #166534;
+           text-decoration: line-through;
+       }}
+       .item input[type="checkbox"] {{
+           margin-top: 3px;
+           margin-right: 14px;
+           width: 18px;
+           height: 18px;
+           cursor: pointer;
+           accent-color: var(--accent);
+       }}
+       .item label {{
+           cursor: pointer;
+           line-height: 1.45;
+           font-size: 0.95rem;
+           flex-grow: 1;
+       }}
+       .notes-section {{
+           margin-top: 20px;
+       }}
+       .notes-section h2 {{
+           font-size: 1.1rem;
+           color: var(--primary);
+           margin-bottom: 8px;
+       }}
+       textarea {{
+           width: 100%;
+           height: 120px;
+           padding: 12px;
+           border: 1px solid var(--border);
+           border-radius: 8px;
+           font-family: inherit;
+           font-size: 0.95rem;
+           box-sizing: border-box;
+           resize: vertical;
+       }}
+       textarea:focus {{
+           outline: none;
+           border-color: var(--accent);
+           box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+       }}
+       .footer {{
+           margin-top: 20px;
+           text-align: center;
+           font-size: 0.8rem;
+           color: #94a3b8;
+       }}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Wykaż Dokumentów do Podania</h1>
+<div class="subtitle">Odznaczaj zgromadzone dokumenty. Zmiany i notatki zapisują się automatycznie w Twojej przeglądarce.</div>
+<div class="progress-box">
+<div class="progress-title">
+<span>Postęp skompletowania</span>
+<span id="progress-text">0 / {len(DOCUMENTS)} (0%)</span>
+</div>
+<div class="progress-bar">
+<div class="progress-fill" id="progress-fill"></div>
+</div>
+</div>
+<ul class="checklist">
+           {list_items_html}
+</ul>
+<div class="notes-section">
+<h2>Moje Notatki / Uwagi</h2>
+<textarea id="notes" placeholder="Wpisz tutaj dodatkowe informacje, numery spraw, terminy odbioru dokumentów..." oninput="saveState()"></textarea>
+</div>
+<div class="footer">
+           Działa offline • Automatyczny zapis w urządzeniu (localStorage)
+</div>
+</div>
+<script>
+       const checkboxes = document.querySelectorAll('.doc-check');
+       const notesTextarea = document.getElementById('notes');
+       const progressText = document.getElementById('progress-text');
+       const progressFill = document.getElementById('progress-fill');
+       function toggleCheckbox(idx, event) {{
+           if (event.target.tagName !== 'INPUT') {{
+               const cb = document.getElementById('doc_' + idx);
+               cb.checked = !cb.checked;
+               saveState();
+           }}
+       }}
+       function saveState() {{
+           const state = {{}};
+           checkboxes.forEach((cb, i) => {{
+               state['cb_' + i] = cb.checked;
+           }});
+           state['notes'] = notesTextarea.value;
+           localStorage.setItem('sg_checklist_data', JSON.stringify(state));
+           updateUI();
+       }}
+       function loadState() {{
+           const saved = localStorage.getItem('sg_checklist_data');
+           if (saved) {{
+               try {{
+                   const state = JSON.parse(saved);
+                   checkboxes.forEach((cb, i) => {{
+                       if (state['cb_' + i] !== undefined) {{
+                           cb.checked = state['cb_' + i];
+                       }}
+                   }});
+                   if (state['notes'] !== undefined) {{
+                       notesTextarea.value = state['notes'];
+                   }
+               }} catch (e) {{
+                   console.error('Błąd odczytu zapisanych danych', e);
+               }}
+           }}
+           updateUI();
+       }}
+       function updateUI() {{
+           const total = checkboxes.length;
+           let checkedCount = 0;
+           checkboxes.forEach((cb) => {{
+               const parent = cb.closest('.item');
+               if (cb.checked) {{
+                   checkedCount++;
+                   parent.classList.add('completed');
+               }} else {{
+                   parent.classList.remove('completed');
+               }}
+           }});
+           const percent = Math.round((checkedCount / total) * 100);
+           progressText.innerText = `${{checkedCount}} / ${{total}} (${{percent}}%)`;
+           progressFill.style.width = `${{percent}}%`;
+       }}
+       window.addEventListener('DOMContentLoaded', loadState);
+</script>
+</body>
+</html>
+'''
+   with open("index.html", "w", encoding="utf-8") as f:
+       f.write(html_content)
+   print("✅ Strona 'index.html' została pomyślnie wygenerowana!")
+if __name__ == "__main__":
+   build_checklist_html()
