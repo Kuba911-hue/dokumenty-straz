@@ -6,19 +6,20 @@
     <title>Służba w Straży Granicznej – Kompletowanie Dokumentów</title>
     <style>
         :root {
-            --bg-color: #0d130e;
-            --card-bg: #162218;
-            --card-border: #2a3d2e;
-            --primary-green: #1f3a24;
-            --accent-gold: #c5a059;
-            --text-main: #f1f5f2;
-            --text-muted: #9ab0a0;
-            --success-bg: rgba(46, 125, 50, 0.2);
-            --success-border: #388e3c;
+            --bg-color: #0b100c;
+            --card-bg: #121c14;
+            --card-border: #233526;
+            --accent-gold: #d4af37;
+            --text-main: #f0f4f1;
+            --text-muted: #8e9e91;
+            --success-bg: rgba(34, 197, 94, 0.08);
+            --success-border: #22c55e;
+            --success-text: #86efac;
         }
 
         * {
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -26,118 +27,102 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
-            padding: 24px 12px;
+            padding: 16px 12px;
             display: flex;
             justify-content: center;
             min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(197, 160, 89, 0.08) 0%, transparent 70%),
-                linear-gradient(180deg, #090e0a 0%, #0d130e 100%);
         }
 
         .container {
             width: 100%;
-            max-width: 800px;
+            max-width: 600px;
             background: var(--card-bg);
-            padding: 32px 28px;
+            padding: 24px 20px;
             border-radius: 16px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--card-border);
+            border: 1px solid var(--card-border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .header {
             text-align: center;
-            padding-bottom: 24px;
+            padding-bottom: 20px;
             border-bottom: 1px solid var(--card-border);
-            margin-bottom: 28px;
-        }
-
-        .logo-wrapper {
-            margin: 0 auto 16px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            margin-bottom: 20px;
         }
 
         .logo-sg {
-            height: 85px;
-            width: auto;
-            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+            width: 80px;
+            height: 90px;
+            margin: 0 auto 12px auto;
+            display: block;
         }
 
         h1 {
-            font-size: 1.4rem;
+            font-size: 1.25rem;
             font-weight: 700;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             color: #ffffff;
-            margin: 0 0 8px 0;
+            margin: 0 0 6px 0;
             text-transform: uppercase;
         }
 
         .subtitle {
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
-            line-height: 1.4;
+            line-height: 1.3;
         }
 
         /* Progress Bar */
         .progress-box {
-            background: rgba(0, 0, 0, 0.25);
+            background: rgba(0, 0, 0, 0.3);
             border: 1px solid var(--card-border);
             border-radius: 12px;
-            padding: 18px 20px;
-            margin-bottom: 28px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
         }
 
         .progress-title {
             display: flex;
             justify-content: space-between;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.82rem;
             color: var(--accent-gold);
-            margin-bottom: 10px;
-            letter-spacing: 0.5px;
+            margin-bottom: 8px;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .progress-bar {
-            background: #0d130e;
-            height: 12px;
-            border-radius: 6px;
+            background: #080c09;
+            height: 10px;
+            border-radius: 5px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .progress-fill {
-            background: linear-gradient(90deg, #9a7b38 0%, var(--accent-gold) 100%);
+            background: linear-gradient(90deg, #b8860b 0%, var(--accent-gold) 100%);
             height: 100%;
             width: 0%;
-            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 10px rgba(197, 160, 89, 0.4);
+            transition: width 0.3s ease;
         }
 
         /* Checklist */
         .checklist {
             list-style: none;
             padding: 0;
-            margin: 0 0 32px 0;
+            margin: 0 0 24px 0;
         }
 
         .item {
             display: flex;
             align-items: center;
-            padding: 14px 18px;
+            padding: 14px 16px;
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--card-border);
             border-radius: 10px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             cursor: pointer;
             transition: all 0.2s ease;
-            user-select: none;
-        }
-
-        .item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(197, 160, 89, 0.3);
         }
 
         .item.completed {
@@ -146,28 +131,25 @@
         }
 
         .item.completed label {
-            color: #d1e7dd;
-            text-decoration: line-through;
-            opacity: 0.85;
+            color: var(--text-muted);
+            opacity: 0.8;
         }
 
         .checkbox-container {
             position: relative;
-            width: 20px;
-            height: 20px;
-            min-width: 20px;
-            min-height: 20px;
+            width: 22px;
+            height: 22px;
+            margin-right: 14px;
             flex-shrink: 0;
-            margin-right: 16px;
         }
 
         .item input[type="checkbox"] {
             appearance: none;
             -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             border: 2px solid var(--text-muted);
-            border-radius: 4px;
+            border-radius: 6px;
             background: transparent;
             cursor: pointer;
             outline: none;
@@ -177,132 +159,106 @@
         }
 
         .item input[type="checkbox"]:checked {
-            background-color: var(--accent-gold);
-            border-color: var(--accent-gold);
+            background-color: var(--success-border);
+            border-color: var(--success-border);
         }
 
         .item input[type="checkbox"]:checked::after {
             content: '';
             position: absolute;
-            left: 6px;
-            top: 2px;
+            left: 7px;
+            top: 3px;
             width: 5px;
             height: 10px;
-            border: solid #0d130e;
+            border: solid #ffffff;
             border-width: 0 2.5px 2.5px 0;
             transform: rotate(45deg);
         }
 
         .item label {
             cursor: pointer;
-            line-height: 1.5;
-            font-size: 0.95rem;
+            line-height: 1.4;
+            font-size: 0.9rem;
             color: var(--text-main);
             flex-grow: 1;
         }
 
         /* Notes Section */
         .notes-section {
-            background: rgba(0, 0, 0, 0.15);
+            background: rgba(0, 0, 0, 0.2);
             border: 1px solid var(--card-border);
             border-radius: 12px;
-            padding: 20px;
+            padding: 16px;
         }
 
         .notes-section h2 {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: var(--accent-gold);
-            margin: 0 0 12px 0;
+            margin: 0 0 10px 0;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         textarea {
             width: 100%;
-            height: 130px;
-            padding: 14px;
-            background: #0d130e;
+            height: 110px;
+            padding: 12px;
+            background: #080c09;
             border: 1px solid var(--card-border);
             border-radius: 8px;
             color: var(--text-main);
             font-family: inherit;
-            font-size: 0.92rem;
-            line-height: 1.5;
+            font-size: 0.88rem;
+            line-height: 1.4;
             resize: vertical;
             outline: none;
-            transition: border-color 0.2s ease;
         }
 
         textarea:focus {
             border-color: var(--accent-gold);
-            box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.15);
         }
 
         .footer {
-            margin-top: 28px;
+            margin-top: 20px;
             text-align: center;
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
-            letter-spacing: 0.3px;
         }
 
         .status-dot {
             display: inline-block;
-            width: 8px;
-            height: 8px;
-            background-color: #4caf50;
+            width: 7px;
+            height: 7px;
+            background-color: #22c55e;
             border-radius: 50%;
             margin-right: 6px;
-            box-shadow: 0 0 8px #4caf50;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px 16px;
-            }
-            h1 {
-                font-size: 1.25rem;
-            }
         }
     </style>
 
-    <!-- Biblioteki Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo-wrapper">
-                <!-- Wbudowane Oficjalne Godło Rzeczypospolitej Polskiej (SVG) -->
-                <svg class="logo-sg" viewBox="0 0 600 700" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Tarcza czerwona z cieniem/ramką -->
-                    <path d="M 300,20 L 570,100 L 570,360 C 570,540 390,660 300,680 C 210,660 30,540 30,360 L 30,100 Z" fill="#d1192e" stroke="#ffffff" stroke-width="8"/>
-                    <!-- Orzeł Biały (wektorowy wzór godła) -->
-                    <g fill="#ffffff">
-                        <!-- Korona złota -->
-                        <path d="M 270,110 L 285,145 L 300,105 L 315,145 L 330,110 L 345,160 L 255,160 Z" fill="#e5b839"/>
-                        <circle cx="270" cy="105" r="5" fill="#e5b839"/>
-                        <circle cx="300" cy="100" r="6" fill="#e5b839"/>
-                        <circle cx="330" cy="105" r="5" fill="#e5b839"/>
-                        <!-- Dziób i oko złote -->
-                        <path d="M 275,170 C 260,170 240,180 230,195 L 260,200 Z" fill="#e5b839"/>
-                        <circle cx="280" cy="180" r="4" fill="#111111"/>
-                        <!-- Głowa i Szyja -->
-                        <path d="M 300,160 C 275,160 260,175 260,195 C 260,225 285,240 300,250 C 315,240 340,225 340,195 C 340,175 325,160 300,160 Z"/>
-                        <!-- Skrzydła rozłożone z piórami -->
-                        <path d="M 260,210 C 180,180 80,220 50,330 C 100,320 160,300 230,320 C 210,270 230,230 260,210 Z"/>
-                        <path d="M 340,210 C 420,180 520,220 550,330 C 500,320 440,300 370,320 C 390,270 370,230 340,210 Z"/>
-                        <!-- Tułów i Szpony złote -->
-                        <path d="M 230,320 C 240,420 270,480 300,510 C 330,480 360,420 370,320 Z"/>
-                        <path d="M 235,480 L 205,530 M 245,490 L 230,545 M 255,485 L 255,545" stroke="#e5b839" stroke-width="12" stroke-linecap="round"/>
-                        <path d="M 365,480 L 395,530 M 355,490 L 370,545 M 345,485 L 345,545" stroke="#e5b839" stroke-width="12" stroke-linecap="round"/>
-                        <!-- Ogon -->
-                        <path d="M 270,490 L 250,580 L 300,610 L 350,580 L 330,490 Z"/>
-                    </g>
-                </svg>
-            </div>
+            <!-- Oficjalny Emblemat Straży Granicznej (SVG) -->
+            <svg class="logo-sg" viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
+                <!-- Tarcza zewnętrzna - złota obwódka -->
+                <path d="M 60,5 L 115,28 L 115,75 C 115,108 60,135 60,135 C 60,135 5,108 5,75 L 5,28 Z" fill="#0b100c" stroke="#d4af37" stroke-width="4"/>
+                <!-- Tarcza wewnętrzna czarna -->
+                <path d="M 60,12 L 108,33 L 108,73 C 108,102 60,126 60,126 C 60,126 12,102 12,73 L 12,33 Z" fill="#121c14"/>
+                <!-- Słup graniczny w tle -->
+                <rect x="52" y="25" width="16" height="85" fill="#ffffff" stroke="#121c14" stroke-width="1"/>
+                <path d="M 52,25 L 68,25 L 68,40 L 52,40 Z" fill="#dc2626"/>
+                <path d="M 52,55 L 68,55 L 68,70 L 52,70 Z" fill="#dc2626"/>
+                <path d="M 52,85 L 68,85 L 68,100 L 52,100 Z" fill="#dc2626"/>
+                <!-- Szarfa / Gałązki oliwne -->
+                <path d="M 22,50 C 22,85 45,105 60,110 C 75,105 98,85 98,50" fill="none" stroke="#d4af37" stroke-width="3" stroke-dasharray="4,3"/>
+                <!-- Napis SG -->
+                <text x="60" y="70" font-family="Arial, sans-serif" font-weight="900" font-size="28" fill="#ffffff" text-anchor="middle" dominant-baseline="central" stroke="#000" stroke-width="1">SG</text>
+            </svg>
+
             <h1>Rzeczpospolita Polska</h1>
             <div class="subtitle">Wykaz Dokumentów Kandydata do Służby w Straży Granicznej</div>
         </div>
@@ -382,11 +338,11 @@
 
         <div class="notes-section">
             <h2>Uwagi i Notatki Własne</h2>
-            <textarea id="notes" placeholder="Wpisz tutaj dodatkowe notatki, numery telefonów, terminy spotkań..." oninput="saveState()"></textarea>
+            <textarea id="notes" placeholder="Tuta wpisz swoje uwag, terminy lub przypomnienia..." oninput="saveState()"></textarea>
         </div>
 
         <div class="footer">
-            <span class="status-dot"></span>Synchronizacja chmurowa w czasie rzeczywistym
+            <span class="status-dot"></span>Synchronizacja z chmurą w czasie rzeczywistym
         </div>
     </div>
 
